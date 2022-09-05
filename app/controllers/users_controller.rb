@@ -12,10 +12,12 @@ class UsersController < ApplicationController
   
     def create
       @user = User.new(params.require(:user).permit(:name, :email, :age, :introduction))
+      #以下のsaveメソッドで保存がされません
       if @user.save
         flash[:notice] = "ユーザーを新規登録しました"
-    redirect_to :users
+        redirect_to :users
       else
+        #こちらの処理が実行されます。
         render "new"
       end
     end
@@ -23,6 +25,8 @@ class UsersController < ApplicationController
     def show
       @user = User.find(params[:id])
       @post = Post.new
+      @posts = Post.where(user_id: @user.id) #この記述でも実装できる
+
     end
   
   
