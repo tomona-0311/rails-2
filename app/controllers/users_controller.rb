@@ -17,11 +17,13 @@ class UsersController < ApplicationController
         flash[:notice] = "ユーザーを新規登録しました"
         redirect_to :users
       else
+        status: :unprocessable_entity
+        
         #こちらの処理が実行されます。
-        render "new"
+        #render "new"
       end
     end
-    
+   
     def show
       @user = User.find(params[:id])
       @post = Post.new
